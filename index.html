@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="loginstyle.css">
+  <script src="bootstrap.min.js"></script>
+  <script>
+    //  display error message
+    function printError(elemId, hintMsg) {
+        document.getElementById(elemId).innerHTML = hintMsg;
+    }
+    
+    function validateForm() {
+        // Retrieving the values of form elements 
+        var name = document.contactForm.name.value;
+        var password = document.contactForm.password.value;
+            
+        
+        var nameErr =  passwordErr = true;
+        
+        // Validate name
+        if(name == "") {
+            printError("nameErr", "Please enter your name");
+        } else {
+            var regex = /^[a-zA-Z\s]+$/;                
+            if(regex.test(name) === false) {
+                printError("nameErr", "Please enter a valid name");
+            } else {
+                printError("nameErr", "");
+                nameErr = false;
+            }
+        }
+
+         
+        // Validate password
+        if(password == "") {
+            printError("passwordErr", "Please enter your password");
+        } else {
+            var regex = /^[a-zA-Z\s]+$/;                
+        }
+
+        if((nameErr || passwordErr ) == true) {
+           return false;
+        } else {
+            var dataPreview = "You've entered the following details: \n" +
+                              "Full Name: " + name + "\n" +
+                              "Password: " + password + "\n" +
+           
+            alert(dataPreview);
+        }
+      
+        document.getElementById("submit").addEventListener("click", function() {
+            window.location.href = "todolist.html";
+        });
+        
+    };
+    </script>
+ 
+</head>
+<body>
+  <form name="contactForm" onsubmit="return validateForm()"  method="post">
+    <div class="container">
+      <div class="account">
+    <h2 style="color: blue; margin-bottom:30px; text-decoration: underline;">CREATE ACCOUNT</h2>
+    <div class="row">
+      <div class="col-auto">
+        <label>Full Name</label>
+        <input type="text" name="name" class="form-control" id="formName">
+        <div class="error" id="nameErr"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-auto">
+      <label>Password</label>
+      <input type="password" name="password" class="form-control" id="fromPassword">
+      <div class="error" id="passwordErr"></div>
+    </div>
+  </div>
+
+      <button class="btn btn-lg btn-outline-success btn-info" style="color:black;" id="submit">
+        <a href="todolist.html" style="text-decoration: none;"> submit</a>
+      </button>
+  <p>Not yet member? <a href="sign.html">Signup now</a> </p>
+
+</div>
+</div>
+</body>
+</html>

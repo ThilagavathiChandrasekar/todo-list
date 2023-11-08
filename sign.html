@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Form validation</title>
+    <link rel="stylesheet" href="signup.css" />
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <script src="bootstrap.min.js"></script>
+
+    <style>
+      body {
+        background-color: azure;
+        font-size: 15px;
+      }
+
+      h2 {
+        text-align: center;
+        color: darkblue;
+        margin-top: 15px;
+      }
+
+      form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 15px 40px 40px;
+        margin-left: 30px;
+      }
+      .row {
+        margin: 2px;
+      }
+
+      .formline {
+        border: 1px solid #ccc;
+        padding: 8px 10px 4px;
+        border-radius: 2px;
+        display: flex;
+      }
+      .error {
+        color: red;
+        font-size: 87%;
+      }
+    </style>
+
+    <script>
+      // Defining a function to display error message
+      function printError(elemId, hintMsg) {
+        document.getElementById(elemId).innerHTML = hintMsg;
+      }
+
+      // Defining a function to validate form
+      function validateForm() {
+        // Retrieving the values of form elements
+        var name = document.contactForm.name.value;
+        var email = document.contactForm.email.value;
+        var mobile = document.contactForm.mobile.value;
+        var country = document.contactForm.country.value;
+        var gender = document.contactForm.gender.value;
+        var address = document.contactForm.address.value;
+        // var age = document.contactForm.age.value;
+        var password = document.contactForm.password.value;
+
+        // Defining error variables with a default value
+        var nameErr = (emailErr = mobileErr = countryErr = genderErr = true);
+
+        // Validate name
+        if (name == "") {
+          printError("nameErr", "Please enter your name");
+        } else {
+          var regex = /^[a-zA-Z\s]+$/;
+          if (regex.test(name) === false) {
+            printError("nameErr", "Please enter a valid name");
+          } else {
+            printError("nameErr", "");
+            nameErr = false;
+          }
+        }
+
+        // Validate email
+        if (email == "") {
+          printError("emailErr", "Please enter your email ");
+        } else {
+          // Regular expression for basic email validation
+          var regex = /^\S+@\S+\.\S+$/;
+          if (regex.test(email) === false) {
+            printError("emailErr", "Please enter a valid email ");
+          } else {
+            printError("emailErr", "");
+            emailErr = false;
+          }
+        }
+
+        // Validate Address
+        if (address == "") {
+          printError("addressErr", "Please enter your address ");
+        } else {
+          // Regular expression for basic email validation
+          var regex =
+            /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+          if (regex.test(address) === false) {
+            printError("addressErr", "Please enter a valid address ");
+          } else {
+            printError("addressErr", "");
+            addressErr = false;
+          }
+        }
+
+        // Validate password
+        if (password == "") {
+          printError("passwordErr", "Please enter your password");
+        } else {
+          var regex = /^[a-zA-Z\s]+$/;
+          if (regex.test(password) === false) {
+            printError("passwordErr", "Please enter a valid password");
+          } else {
+            printError("passwordErr", "");
+            passwordErr = false;
+          }
+        }
+
+        // Validate mobileNo
+        if (mobile == "") {
+          printError("mobileErr", "Please enter your mobileNo ");
+        } else {
+          var regex = /^[1-9]\d{9}$/;
+          if (regex.test(mobile) === false) {
+            printError("mobileErr", "Please enter a valid 10 digit mobileNo ");
+          } else {
+            printError("mobileErr", "");
+            mobileErr = false;
+          }
+        }
+
+        // // // Validate age
+        // if (age == "") {
+        //   printError("ageErr", "Please enter your age ");
+        // } else {
+        //   var regex = /^[1-9]\d{9}$/;
+        // }
+
+        // Validate country
+        if (country == "Select") {
+          printError("countryErr", "Please select your country");
+        } else {
+          printError("countryErr", "");
+          countryErr = false;
+        }
+
+        // Validate name
+        if (district == "") {
+          printError("districtErr", "Please enter your district");
+        } else {
+          var regex = /^[a-zA-Z\s]+$/;
+          if (regex.test(district) === false) {
+            printError("districtErr", "Please enter a valid district");
+          } else {
+            printError("districtErr", "");
+            districtErr = false;
+          }
+        }
+
+        // Validate gender
+        if (gender == "") {
+          printError("genderErr", "Please select your gender");
+        } else {
+          printError("genderErr", "");
+          genderErr = false;
+        }
+
+        // Prevent the form from being submitted if there are any errors
+        if (
+          (nameErr ||
+            emailErr ||
+            mobileErr ||
+            countryErr ||
+            genderErr ||
+            addressErr ||
+            districtErr ||
+            ageErr ||
+            passwordErr) == true
+        ) {
+          return false;
+        } else {
+          // Creating a string from input data for preview
+          var dataPreview =
+            "You've entered the following details: \n" +
+            "Full Name: " +
+            name +
+            "\n" +
+            "Email : " +
+            email +
+            "\n" +
+            "MobileNo : " +
+            mobile +
+            "\n" +
+            "Country: " +
+            country +
+            "\n" +
+            "Gender: " +
+            gender +
+            "\n";
+          "Address: " + address + "\n";
+          "District: " + district + "\n";
+          "Password: " + password + "\n";
+          "Age: " + age + "\n";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="clsform">
+        <form
+          name="contactForm"
+          onsubmit="return validateForm()"
+          action="/examples/actions/confirmation.php"
+          method="post"
+        >
+          <h2>Signup Form</h2>
+          <div class="row">
+            <div class="col-auto name">
+              <label class="label-ip">Full Name</label> <br />
+              <input type="text" name="name" class="sign-ip form-control" />
+              <div class="error" id="nameErr"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto email">
+              <label class="label-ip">Email </label> <br />
+              <input type="text" name="email" class="sign-ip form-control" />
+              <div class="error" id="emailErr"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto password">
+              <label class="label-ip">Password </label> <br />
+              <input
+                type="password"
+                name="password"
+                class="sign-ip form-control"
+              />
+              <div class="error" id="passwordErr"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto age">
+              <label class="label-ip"
+                >Age <i style="color: gray">(optional)</i>
+              </label>
+              <br />
+              <input type="number" name="age" class="sign-ip form-control" />
+              <div class="error" id="ageError"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto mobile">
+              <label class="label-ip">MobileNo </label> <br />
+              <input
+                type="text"
+                name="mobile"
+                maxlength="10"
+                class="sign-ip form-control"
+              />
+              <div class="error" id="mobileErr"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="gender">
+              <label class="label-ip">Gender</label> <br />
+              <div class="formline">
+                <label
+                  ><input
+                    type="radio"
+                    name="gender"
+                    value="male"
+                    class="sign-ip"
+                  />
+                  Male</label
+                >
+                <br />
+                <label
+                  ><input
+                    type="radio"
+                    name="gender"
+                    value="female"
+                    class="sign-ip"
+                  />
+                  Female</label
+                >
+              </div>
+              <div class="error" id="genderErr"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-auto">
+              <label class="label-ip">Address</label> <br />
+              <input
+                type="text"
+                max="35"
+                name="address"
+                id="address"
+                class="sign-ip form-control"
+              />
+              <div class="error" id="addressErr"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto district">
+              <label class="label-ip">District</label> <br />
+              <input
+                type="text"
+                name="district"
+                id="district"
+                class="sign-ip form-control"
+              />
+              <div class="error" id="districtErr"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto country">
+              <label class="label-ip">Country</label> <br />
+              <select name="country" class="sign-ip form-control">
+                <option>Select</option>
+                <option>Australia</option>
+                <option>India</option>
+                <option>United States</option>
+                <option>United Kingdom</option>
+              </select>
+              <div class="error" id="countryErr"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto submit">
+              <button style="margin-top: 10px" class="btn btn-lg btn-info">
+                <a href="todolist.html">submit</a>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
